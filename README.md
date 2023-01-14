@@ -1,1 +1,1 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+This is a NextJS web-app for collecting signatures, stories, evidence, etc. to support Ndirangu Gachunia's petition to abolish lottery and gambling schemes being run on Kenyan local radio & TV stations.
