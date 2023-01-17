@@ -3,7 +3,21 @@ import styles from '../styles/Home.module.scss';
 import Link from 'next/link';
 import { PrimaryButton } from '@fluentui/react';
 
-export default function Home() {
+import { useRouter } from 'next/router';
+import { useTranslation, Trans } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+const Home = ({ pageProps }) => {
+   
+  const { t } = useTranslation('common');
+  const router = useRouter();
+  const changeTo = router.locale === 'en' ? 'sw' : 'en';
+
+  const onToggleLanguageClick = (newLocale) => {
+    const { pathname, asPath, query } = router
+    router.push({ pathname, query }, asPath, { locale: newLocale })
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,7 +30,7 @@ export default function Home() {
           Read <Link href="/posts/first-post">this page!</Link>
         </h1>
 
-      <PrimaryButton>Click Me</PrimaryButton>
+      <PrimaryButton onClick={() => onToggleLanguageClick(changeTo)}>{t('button_text')}</PrimaryButton>
 
         <p className={styles.description}>
           Get started by editing <code>pages/index.js</code>
@@ -117,3 +131,15 @@ export default function Home() {
     </div>
   )
 }
+
+export const getStaticProps = async ({
+  locale,
+}) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'en', [
+      'common',
+    ])),
+  },
+})
+
+export default Home;
