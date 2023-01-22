@@ -1,15 +1,13 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.scss';
+import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import { PrimaryButton } from '@fluentui/react';
 
 import { useRouter } from 'next/router';
-import { useTranslation, Trans } from 'next-i18next';
+import { withTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-const Home = ({ pageProps }) => {
+function Home({ t, i18n }) {
    
-  const { t } = useTranslation('common');
   const router = useRouter();
   const changeTo = router.locale === 'en' ? 'sw' : 'en';
 
@@ -30,7 +28,7 @@ const Home = ({ pageProps }) => {
           Read <Link href="/posts/first-post">this page!</Link>
         </h1>
 
-      <PrimaryButton onClick={() => onToggleLanguageClick(changeTo)}>{t('button_text')}</PrimaryButton>
+      <button data-testid="translate-button" onClick={() => onToggleLanguageClick(changeTo)}>{t('button_text')}</button>
 
         <p className={styles.description}>
           Get started by editing <code>pages/index.js</code>
@@ -142,4 +140,5 @@ export const getStaticProps = async ({
   },
 })
 
-export default Home;
+export { Home };
+export default withTranslation()(Home);

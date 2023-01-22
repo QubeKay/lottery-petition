@@ -1,9 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
-// import Script from 'next/script';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function FirstPost() {
+  const { t } = useTranslation('common');
+
   return (
     <>
     <Head>
@@ -17,7 +20,7 @@ export default function FirstPost() {
           console.log(`script loaded correctly, window.FB has been populated`)
         }
       /> */}
-      <h1>First Post</h1>
+      <h1>First Post {t('button_text')}</h1>
       <h2>
         <Link href="/">Back to home</Link>
       </h2>
@@ -30,3 +33,13 @@ export default function FirstPost() {
     </>
   );
 }
+
+export const getStaticProps = async ({
+  locale,
+}) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'en', [
+      'common',
+    ])),
+  },
+})
