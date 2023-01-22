@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders homepage unchanged 1`] = `
+<div>
+  <div
+    class="jsx-25781291bf750 container"
+  >
+    <main
+      class="jsx-25781291bf750"
+    >
+      <h1
+        class="jsx-25781291bf750 title"
+      >
+        Read 
+        <a
+          href="/posts/first-post"
+        >
+          this page!
+        </a>
+      </h1>
+      <button
+        class="jsx-25781291bf750"
+        data-testid="translate-button"
+      >
+        button_text
+      </button>
+      <p
+        class="jsx-25781291bf750 description"
+      >
+        Get started by editing 
+        <code
+          class="jsx-25781291bf750"
+        >
+          pages/index.js
+        </code>
+      </p>
+      <div
+        class="jsx-25781291bf750 grid"
+      >
+        <a
+          class="jsx-25781291bf750 card"
+          href="https://nextjs.org/docs"
+        >
+          <h3
+            class="jsx-25781291bf750"
+          >
+            Documentation →
+          </h3>
+          <p
+            class="jsx-25781291bf750"
+          >
+            Find in-depth information about Next.js features and API.
+          </p>
+        </a>
+        <a
+          class="jsx-25781291bf750 card"
+          href="https://nextjs.org/learn"
+        >
+          <h3
+            class="jsx-25781291bf750"
+          >
+            Learn →
+          </h3>
+          <p
+            class="jsx-25781291bf750"
+          >
+            Learn about Next.js in an interactive course with quizzes!
+          </p>
+        </a>
+        <a
+          class="jsx-25781291bf750 card"
+          href="https://github.com/vercel/next.js/tree/master/examples"
+        >
+          <h3
+            class="jsx-25781291bf750"
+          >
+            Examples →
+          </h3>
+          <p
+            class="jsx-25781291bf750"
+          >
+            Discover and deploy boilerplate example Next.js projects.
+          </p>
+        </a>
+        <a
+          class="jsx-25781291bf750 card"
+          href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+        >
+          <h3
+            class="jsx-25781291bf750"
+          >
+            Deploy →
+          </h3>
+          <p
+            class="jsx-25781291bf750"
+          >
+            Instantly deploy your Next.js site to a public URL with Vercel.
+          </p>
+        </a>
+      </div>
+    </main>
+    <footer
+      class="jsx-25781291bf750"
+    >
+      <a
+        class="jsx-25781291bf750"
+        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Powered by
+         
+      </a>
+    </footer>
+  </div>
+</div>
+`;
