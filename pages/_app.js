@@ -145,6 +145,14 @@ const App = ({ Component, ...rest }) => {
           collapsedWidth="0"
           collapsible
           collapsed={collapsed}
+          style={{
+            overflow: "auto",
+            height: "100vh",
+            position: "fixed",
+            right: 0,
+            top: 64,
+            bottom: 0,
+          }}
         >
           <Menu mode="inline" defaultSelectedKeys={[current]} items={items1} />
         </Sider>
