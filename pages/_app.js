@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import "../styles/globals.css";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import { wrapper } from "../store/store";
+import { useSelector, useDispatch } from "react-redux";
+import { todosLoading, fetchTodos } from "../store/layout/layoutSlice";
 
 import {
   TeamOutlined,
@@ -18,7 +21,11 @@ import { Layout, Menu, Button, Row, Col, theme } from "antd";
 
 const { Header, Content, Sider, Footer } = Layout;
 
-const App = ({ Component, appProps }) => {
+const App = ({ Component, ...rest }) => {
+  const { props } = wrapper.useWrappedStore(rest);
+  const { layout } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -53,7 +60,7 @@ const App = ({ Component, appProps }) => {
     {
       key: "4",
       icon: <PhoneOutlined />,
-      label: "Contacts",
+      label: "Contacts" + " + " + layout.status,
     },
     {
       key: "5",
@@ -83,6 +90,7 @@ const App = ({ Component, appProps }) => {
         break;
       default:
         setCurrent(e.key);
+        dispatch(fetchTodos());
         break;
     }
   };
@@ -130,7 +138,7 @@ const App = ({ Component, appProps }) => {
             background: colorBgContainer,
           }}
         >
-          <Component {...appProps} />
+          <Component {...props.pageProps} />
         </Content>
         <Sider
           trigger={null}
@@ -148,4 +156,4 @@ const App = ({ Component, appProps }) => {
   );
 };
 
-export default appWithTranslation(App, nextI18NextConfig);
+export default wrapper.withRedux(appWithTranslation(App, nextI18NextConfig));
