@@ -43,12 +43,12 @@ const App = ({ Component, ...rest }) => {
 
   const items1 = [
     {
-      key: "1",
+      key: "/",
       icon: <AimOutlined />,
       label: "Petition",
     },
     {
-      key: "2",
+      key: "about",
       icon: <InfoCircleOutlined />,
       label: t("button_text"),
     },
@@ -58,12 +58,12 @@ const App = ({ Component, ...rest }) => {
       label: "Sponsors & Supporters",
     },
     {
-      key: "4",
+      key: "contacts",
       icon: <PhoneOutlined />,
-      label: "Contacts" + " + " + layout.status,
+      label: "Contacts",
     },
     {
-      key: "5",
+      key: "lang",
       icon: <TranslationOutlined />,
       label: "Translation",
       children: [
@@ -90,13 +90,14 @@ const App = ({ Component, ...rest }) => {
         break;
       default:
         setCurrent(e.key);
-        dispatch(fetchTodos());
+        router.push(e.key);
+        // dispatch(fetchTodos());
         break;
     }
   };
 
   return (
-    <Layout>
+    <Layout style={{ minHeight: "100vh" }}>
       <Header
         style={{
           position: "sticky",
@@ -134,8 +135,8 @@ const App = ({ Component, ...rest }) => {
           style={{
             margin: "24px 16px",
             padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
+            minHeight: "100vh",
+            // background: colorBgContainer,
           }}
         >
           <Component {...props.pageProps} />
@@ -154,7 +155,12 @@ const App = ({ Component, ...rest }) => {
             bottom: 0,
           }}
         >
-          <Menu mode="inline" defaultSelectedKeys={[current]} items={items1} />
+          <Menu
+            onClick={onMenuClicked}
+            mode="inline"
+            defaultSelectedKeys={[current]}
+            items={items1}
+          />
         </Sider>
       </Layout>
       <Footer style={{ textAlign: "center" }}>
