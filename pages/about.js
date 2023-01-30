@@ -12,7 +12,7 @@ function Home({ t, i18n }) {
   return (
     <div>
       <Head>
-        <title>About :: Petition & Ndirangu Gachunia</title>
+        <title>{t("title")}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -39,28 +39,21 @@ function Home({ t, i18n }) {
               }
               description={
                 <>
-                  <Text>CS Public Service, Nyeri County & CEO, CEREB</Text>
+                  <Text>{t("position")}</Text>
                   <br />
-                  <span>
-                    Sed euismod cursus nibh a condimentum. Nulla venenatis
-                    scelerisque massa. Aliquam justo orci, venenatis ut justo
-                    vitae, rutrum placerat risus. Praesent luctus eros vel
-                    tellus ultricies lobortis. Praesent dignissim urna commodo
-                    massa pellentesque pulvinar. Nullam commodo malesuada
-                    tristique.
-                  </span>
+                  <span>{t("bio")}</span>
                 </>
               }
             />
           </Card>
         </Col>
-        <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Card style={{ height: "100%" }} bodyStyle={{ height: "100%" }}>
             <Meta
               style={{ height: "100%" }}
               title={
                 <span style={{ whiteSpace: "normal" }}>
-                  Ndirangu Gachunia on Nyeri Mohoro NewsHub
+                  {t("video_heading")}
                 </span>
               }
               description={
@@ -80,57 +73,28 @@ function Home({ t, i18n }) {
             />
           </Card>
         </Col>
-        <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+        <Col xs={24} sm={24} md={24} lg={20} xl={20}>
           <Card
             // hoverable
             style={{ height: "100%" }}
             actions={[
-              <Button type="dashed" icon={<FacebookOutlined />}>
-                See Facebook Post
+              <Button
+                target="_blank"
+                href="https://www.facebook.com/story.php?story_fbid=pfbid0LenuePNNPwX5NneuSR5vZT7b6AKrivNZgvqugUBZv5FECiw7e72QHL83qwCkzgRPl&id=1127471936&mibextid=Nif5oz"
+                type="dashed"
+                icon={<FacebookOutlined />}
+              >
+                {t("fb_post")}
               </Button>,
             ]}
           >
             <Meta
               title={
                 <span style={{ whiteSpace: "normal" }}>
-                  CS Ndirangu Gachunia's Commitment
+                  {t("commitment_heading")}
                 </span>
               }
-              description={
-                <p>
-                  I listen to kikuyu Radio especially when driving. I like Sec
-                  Gen and Board Chair coz l find them intelligent. But one
-                  annoying thing that makes me switch off is the lottery. The
-                  continuous advertising of people gambling to win some price is
-                  driving our community in the wrong direction. I am the CEO
-                  Central Region economic Bloc and I think about the Mountain
-                  (ruriri) economically more often than not. We are the
-                  entrepreneurial capital of the nation contributing 28% of the
-                  GDP with a 10% population and owning 60% of Nairobi. Fact.
-                  Lotteries are 'retrogressive taxes' on low income earners.
-                  Hardly can you find successive people or men of real faith
-                  playing lotteries. If on some dumb day I played and won I
-                  would pay someone to pose on that photo. I can't live life
-                  defined by randomness. We cannot feed our new generation that
-                  success comes from LUCK and external factors. Successful
-                  people according to Marshall Goldsmith believe that success
-                  comes from sheer force of personality , talent, brainpower and
-                  your inner drive. Given a chance i would bet on myself. This
-                  gives me power to go to work and compete like a pro even when
-                  everything else tells me not to. Am blind to negativity,
-                  destiny crashers, excuses and naysayers. You put a block on my
-                  path of progress and like a river i must find the strength to
-                  navigate and keep walking like mutembei. Our media must
-                  reflect our reality. They must stay true to our dreams and
-                  aspirations as a community not feeding us garbage daily and
-                  hoping for the best. They must account for every suicide,
-                  broken home and all on the account of failed gambling. I find
-                  it very insulting when it's linked to Faith in the God that I
-                  believe in. Trail your trash as we say in the Circular Economy
-                  . Account for your victims because they contribute to your
-                  daily Harambees. Happy Holidays
-                </p>
-              }
+              description={<p>{t("commitment")}</p>}
             />
           </Card>
         </Col>
@@ -141,9 +105,9 @@ function Home({ t, i18n }) {
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    ...(await serverSideTranslations(locale ?? "en", ["about", "common"])),
   },
 });
 
 export { Home };
-export default withTranslation()(Home);
+export default withTranslation(["about", "common"])(Home);
