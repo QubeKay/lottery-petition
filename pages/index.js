@@ -42,7 +42,7 @@ Etiam condimentum eu felis eget pulvinar. Nam rhoncus nibh ac faucibus dignissim
       </Row>
       <br />
       <div className={styles.container}>
-        <Button size="large" type="primary" shape="round">
+        <Button data-testid='sign-petition-button' size="large" type="primary" shape="round">
           Sign Petition &nbsp; &gt;
         </Button>
       </div>

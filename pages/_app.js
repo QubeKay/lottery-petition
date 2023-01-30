@@ -45,27 +45,27 @@ const App = ({ Component, ...rest }) => {
     {
       key: "/",
       icon: <AimOutlined />,
-      label: "Petition",
+      label: t("menu.petition"),
     },
     {
       key: "about",
       icon: <InfoCircleOutlined />,
-      label: t("button_text"),
+      label: t("menu.about"),
     },
-    {
-      key: "3",
-      icon: <TeamOutlined />,
-      label: "Sponsors & Supporters",
-    },
+    // {
+    //   key: "3",
+    //   icon: <TeamOutlined />,
+    //   label: "Sponsors & Supporters",
+    // },
     {
       key: "contacts",
       icon: <PhoneOutlined />,
-      label: "Contacts",
+      label: t("menu.contacts"),
     },
     {
       key: "lang",
       icon: <TranslationOutlined />,
-      label: "Translation",
+      label: t("menu.translation"),
       children: [
         {
           label: "English",
@@ -94,6 +94,7 @@ const App = ({ Component, ...rest }) => {
         // dispatch(fetchTodos());
         break;
     }
+    setCollapsed(true);
   };
 
   return (
@@ -107,6 +108,7 @@ const App = ({ Component, ...rest }) => {
           paddingRight: 24,
           background: colorBgContainer,
         }}
+        onClick={() => setCollapsed(true)}
       >
         <p className="logo">Lottery Petition</p>
         <Row style={{ minHeight: "100%" }}>
@@ -122,7 +124,10 @@ const App = ({ Component, ...rest }) => {
           <Col xs={24} sm={24} md={24} lg={0} xl={0}>
             <Button
               type="secondary"
-              onClick={() => setCollapsed(!collapsed)}
+              onClick={(e) => {
+                setCollapsed(!collapsed);
+                e.stopPropagation();
+              }}
               className="trigger"
             >
               {collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
@@ -132,6 +137,7 @@ const App = ({ Component, ...rest }) => {
       </Header>
       <Layout className="site-layout">
         <Content
+          onClick={() => setCollapsed(true)}
           style={{
             margin: "24px 16px",
             padding: 24,
@@ -163,7 +169,10 @@ const App = ({ Component, ...rest }) => {
           />
         </Sider>
       </Layout>
-      <Footer style={{ textAlign: "center" }}>
+      <Footer
+        onClick={() => setCollapsed(true)}
+        style={{ textAlign: "center" }}
+      >
         Kay Qube Design ©2023 Created by Premar Systems Ltd
       </Footer>
     </Layout>

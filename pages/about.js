@@ -1,11 +1,12 @@
 import Head from "next/head";
-// import styles from "../styles/Home.module.css";
+import styles from "../styles/About.module.css";
 import Link from "next/link";
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Row, Typography } from "antd";
 import { ShareAltOutlined, FacebookOutlined } from "@ant-design/icons";
 import { withTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 const { Meta } = Card;
+const { Text } = Typography;
 
 function Home({ t, i18n }) {
   return (
@@ -27,14 +28,55 @@ function Home({ t, i18n }) {
             ]}
             cover={
               <img
-                alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                alt="Photo of CS Ndirangu Gachunia"
+                src="https://scontent.fnbo16-1.fna.fbcdn.net/v/t39.30808-6/217332416_10225403714176286_3746858116282713643_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=174925&_nc_ohc=fOLI0LCMy-MAX9sl_le&_nc_ht=scontent.fnbo16-1.fna&oh=00_AfAYzx1AfreB6IeQZJVU_FAxSi8q53fUurj5SXJZsgjlSw&oe=63D97415"
               />
             }
           >
             <Meta
-              title="Ndirangu Gachunia"
-              description="CS Public Service, Nyeri County & CEO, CEREB : Sed euismod cursus nibh a condimentum. Nulla venenatis scelerisque massa. Aliquam justo orci, venenatis ut justo vitae, rutrum placerat risus. Praesent luctus eros vel tellus ultricies lobortis. Praesent dignissim urna commodo massa pellentesque pulvinar. Nullam commodo malesuada tristique."
+              title={
+                <span style={{ whiteSpace: "normal" }}>Ndirangu Gachunia</span>
+              }
+              description={
+                <>
+                  <Text>CS Public Service, Nyeri County & CEO, CEREB</Text>
+                  <br />
+                  <span>
+                    Sed euismod cursus nibh a condimentum. Nulla venenatis
+                    scelerisque massa. Aliquam justo orci, venenatis ut justo
+                    vitae, rutrum placerat risus. Praesent luctus eros vel
+                    tellus ultricies lobortis. Praesent dignissim urna commodo
+                    massa pellentesque pulvinar. Nullam commodo malesuada
+                    tristique.
+                  </span>
+                </>
+              }
+            />
+          </Card>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+          <Card style={{ height: "100%" }} bodyStyle={{ height: "100%" }}>
+            <Meta
+              style={{ height: "100%" }}
+              title={
+                <span style={{ whiteSpace: "normal" }}>
+                  Ndirangu Gachunia on Nyeri Mohoro NewsHub
+                </span>
+              }
+              description={
+                <div style={{ minHeight: "340px" }}>
+                  <iframe
+                    src="https://www.facebook.com/plugins/video.php?height=321&href=https%3A%2F%2Fwww.facebook.com%2Fnyerimohoro%2Fvideos%2F690811256087604%2F&show_text=false&width=560&t=0"
+                    width="100%"
+                    height="321"
+                    style={{ border: "none", overflow: "hidden" }}
+                    scrolling="no"
+                    frameBorder="0"
+                    allowFullScreen={true}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  ></iframe>
+                </div>
+              }
             />
           </Card>
         </Col>
@@ -49,7 +91,11 @@ function Home({ t, i18n }) {
             ]}
           >
             <Meta
-              title="CS Ndirangu Gachunia's Commitment"
+              title={
+                <span style={{ whiteSpace: "normal" }}>
+                  CS Ndirangu Gachunia's Commitment
+                </span>
+              }
               description={
                 <p>
                   I listen to kikuyu Radio especially when driving. I like Sec
@@ -84,26 +130,6 @@ function Home({ t, i18n }) {
                   . Account for your victims because they contribute to your
                   daily Harambees. Happy Holidays
                 </p>
-              }
-            />
-          </Card>
-        </Col>
-        <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-          <Card style={{ height: '100%' }}>
-            <Meta
-              title="Ndirangu Gachunia on Nyeri Mohoro NewsHub"
-              description={
-                <iframe
-                  src="https://www.facebook.com/plugins/video.php?height=321&href=https%3A%2F%2Fwww.facebook.com%2Fnyerimohoro%2Fvideos%2F690811256087604%2F&show_text=true&width=560&t=0"
-                  width="100%"
-                  // height="1000"
-                  style={{ border: "none", overflow: "hidden" }}
-                  scrolling="no"
-                  frameborder="0"
-                  allowfullscreen="true"
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  allowFullScreen="true"
-                ></iframe>
               }
             />
           </Card>

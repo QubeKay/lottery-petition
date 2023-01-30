@@ -1,0 +1,36 @@
+/* @media only screen and (max-width: 576px) {
+  /* xs *
+  .videoFrame {
+    max-height: 174px;
+  }
+}
+@media only screen and (min-width: 576px) {
+  /* sm *
+  .videoFrame {
+    min-height: 340px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  /* md *
+  .videoFrame {
+    min-height: 340px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  /* lg *
+  .videoFrame {
+    min-height: 340px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  /* xl *
+  .videoFrame {
+    min-height: 340px;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  /* xxl *
+  .videoFrame {
+    min-height: 340px;
+  }
+} */
