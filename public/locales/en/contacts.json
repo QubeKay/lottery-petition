@@ -1,0 +1,10 @@
+{
+    "title": "Contacts :: Lottery Petition",
+    "contact_us": "Contact Us :: Send us a message or question",
+    "full_name": "Full Name",
+    "email": "Email",
+    "phone_number": "Phone Number",
+    "message": "Message",
+    "submit": "Submit",
+    "error_msg_prefix": "Please input your {{LABEL}}"
+}

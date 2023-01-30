@@ -1,3 +1,7 @@
-{
-    "button_text": "Nibonyeze"
+{    "menu": {
+        "petition": "Ombi/Lalamiko",
+        "about": "Kuhusu",
+        "contacts": "Wasiliana Nasi",
+        "translation": "Translation"
+    }
 }
