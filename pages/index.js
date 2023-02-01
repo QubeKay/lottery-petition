@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
@@ -11,6 +11,7 @@ const { Meta } = Card;
 
 function Home({ t, i18n }) {
   const [showModal, setShowModal] = useState(false);
+  const submitButtonRef = useRef();
 
   return (
     <>
@@ -35,7 +36,15 @@ function Home({ t, i18n }) {
                   {t("petition_heading")}
                 </span>
               }
-              description={t("petition")}
+              description={
+                <>
+                  <p>{t("petition")}</p>
+                  <ul>
+                    <li>{t("petition_1")}</li>
+                    <li>{t("petition_2")}</li>
+                  </ul>
+                </>
+              }
             />
           </Card>
         </Col>
@@ -55,10 +64,18 @@ function Home({ t, i18n }) {
 
       <Modal
         open={showModal}
-        onOk={() => setShowModal(false)}
+        onOk={() => {
+          submitButtonRef.current.dispatchEvent(new MouseEvent("click"));
+        }}
         onCancel={() => setShowModal(false)}
+        type="warning"
+        cancelText={t("dismiss_modal_btn")}
+        okText={t("sign_btn_text")}
       >
-        <SignPetition {...{ t, i18n }}></SignPetition>
+        <SignPetition
+          {...{ t, i18n }}
+          submitButtonRef={submitButtonRef}
+        ></SignPetition>
       </Modal>
     </>
   );

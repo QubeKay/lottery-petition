@@ -2,7 +2,7 @@ import { Button, Card, Col, Form, Input, Row } from "antd";
 import { useState, useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 
-function SignPetition({ t, i18n }) {
+function SignPetition({ t, i18n, submitButtonRef }) {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -156,8 +156,13 @@ function SignPetition({ t, i18n }) {
                 <Input />
               </Form.Item>
 
-              <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-                <Button type="primary" htmlType="submit">
+              <Form.Item style={{ display: "none" }}>
+                <Button
+                  name="personal-info-submit"
+                  ref={submitButtonRef}
+                  type="primary"
+                  htmlType="submit"
+                >
                   {t("submit")}
                 </Button>
               </Form.Item>
