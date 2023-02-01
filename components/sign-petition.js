@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
-import Head from "next/head";
-// import styles from "../styles/Contacts.module.css";
-
 import { Button, Card, Col, Form, Input, Row } from "antd";
-import { CommentOutlined } from "@ant-design/icons";
+import { useState, useEffect } from "react";
+import { UserOutlined } from "@ant-design/icons";
 
-import { withTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+function SignPetition({ t, i18n }) {
+  const [form] = Form.useForm();
 
-function Home({ t, i18n }) {
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -17,45 +13,45 @@ function Home({ t, i18n }) {
     console.log("Failed:", errorInfo);
   };
 
-  const [form] = Form.useForm();
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
   useEffect(() => {
     // language changed
     if (currentLanguage !== i18n.language) {
       setCurrentLanguage(i18n.language);
 
-      ["name", "email", "phone", "message"].forEach((name) =>
-        form.setFields([{ name: name, errors: "" }])
-      );
+      [
+        "fname",
+        "sname",
+        "lname",
+        "email",
+        "phone",
+        "id_number",
+        "county",
+      ].forEach((name) => form.setFields([{ name: name, errors: "" }]));
     }
   });
 
   return (
     <>
-      <Head>
-        <title>{t("title")}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <Row justify="center" align="stretch" gutter={[8, 16]}>
         <Col
           xs={{ span: 24, offset: 0 }}
           sm={{ span: 24, offset: 0 }}
-          md={{ span: 20, offset: 2 }}
-          lg={{ span: 18, offset: 3 }}
-          xl={{ span: 16, offset: 4 }}
+          md={{ span: 24, offset: 0 }}
+          lg={{ span: 24, offset: 0 }}
+          xl={{ span: 24, offset: 0 }}
         >
           <Card
             title={
               <>
-                <CommentOutlined /> &nbsp;
-                <span style={{ whiteSpace: "normal" }}>{t("contact_us")}</span>
+                <UserOutlined /> &nbsp;
+                <span style={{ whiteSpace: "normal" }}>{t("modal_title")}</span>
               </>
             }
             bordered={false}
           >
             <Form
-              name="basic"
+              name="petition"
               labelCol={{ span: 8 }}
               wrapperCol={{ span: 16 }}
               style={{ maxWidth: 600 }}
@@ -65,12 +61,38 @@ function Home({ t, i18n }) {
               form={form}
             >
               <Form.Item
-                label={t("full_name")}
-                name="name"
+                label={t("fname")}
+                name="fname"
                 rules={[
                   {
                     required: true,
-                    message: t("error_msg_prefix", { LABEL: t("full_name") }),
+                    message: t("error_msg_prefix", { LABEL: t("fname") }),
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label={t("sname")}
+                name="sname"
+                rules={[
+                  {
+                    required: true,
+                    message: t("error_msg_prefix", { LABEL: t("sname") }),
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label={t("lname")}
+                name="lname"
+                rules={[
+                  {
+                    required: true,
+                    message: t("error_msg_prefix", { LABEL: t("lname") }),
                   },
                 ]}
               >
@@ -107,16 +129,31 @@ function Home({ t, i18n }) {
               </Form.Item>
 
               <Form.Item
-                label={t("message")}
-                name="message"
+                label={t("id_number")}
+                name="id_number"
                 rules={[
                   {
                     required: true,
-                    message: t("error_msg_prefix", { LABEL: t("message") }),
+                    message: t("error_msg_prefix", {
+                      LABEL: t("id_number"),
+                    }),
                   },
                 ]}
               >
-                <Input.TextArea rows={6} />
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label={t("county")}
+                name="county"
+                rules={[
+                  {
+                    required: true,
+                    message: t("error_msg_prefix", { LABEL: t("county") }),
+                  },
+                ]}
+              >
+                <Input />
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
@@ -132,11 +169,4 @@ function Home({ t, i18n }) {
   );
 }
 
-export const getStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? "en", ["contacts", "common"])),
-  },
-});
-
-export { Home };
-export default withTranslation(["contacts", "common"])(Home);
+export default SignPetition;
