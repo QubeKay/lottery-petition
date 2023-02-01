@@ -13,6 +13,16 @@ function Home({ t, i18n }) {
   const [showModal, setShowModal] = useState(false);
   const submitButtonRef = useRef();
 
+  const onFinish = (values) => {
+    setTimeout(() => setShowModal(false), 2000)
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+
   return (
     <>
       <Head>
@@ -75,6 +85,8 @@ function Home({ t, i18n }) {
         <SignPetition
           {...{ t, i18n }}
           submitButtonRef={submitButtonRef}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         ></SignPetition>
       </Modal>
     </>

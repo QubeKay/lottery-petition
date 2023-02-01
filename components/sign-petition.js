@@ -2,16 +2,8 @@ import { Button, Card, Col, Form, Input, Row } from "antd";
 import { useState, useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 
-function SignPetition({ t, i18n, submitButtonRef }) {
+function SignPetition({ t, i18n, submitButtonRef, onFinish, onFinishFailed }) {
   const [form] = Form.useForm();
-
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
 
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
   useEffect(() => {
@@ -78,7 +70,6 @@ function SignPetition({ t, i18n, submitButtonRef }) {
                 name="sname"
                 rules={[
                   {
-                    required: true,
                     message: t("error_msg_prefix", { LABEL: t("sname") }),
                   },
                 ]}
