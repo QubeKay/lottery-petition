@@ -44,8 +44,8 @@ function SignPetition({ t, i18n, submitButtonRef, onFinish, onFinishFailed }) {
           >
             <Form
               name="petition"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
+              labelCol={{ span: 12 }}
+              wrapperCol={{ span: 12 }}
               style={{ maxWidth: 600 }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
