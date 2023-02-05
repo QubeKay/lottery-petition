@@ -52,11 +52,11 @@ const App = ({ Component, ...rest }) => {
       icon: <InfoCircleOutlined />,
       label: t("menu.about"),
     },
-    // {
-    //   key: "3",
-    //   icon: <TeamOutlined />,
-    //   label: "Sponsors & Supporters",
-    // },
+    {
+      key: "supporters",
+      icon: <TeamOutlined />,
+      label: t("menu.supporters"),
+    },
     {
       key: "contacts",
       icon: <PhoneOutlined />,
