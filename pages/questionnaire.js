@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 // import styles from "../styles/Contacts.module.css";
 
-import { Button, Card, Col, Form, Input, Row } from "antd";
-import { CommentOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Form, Input, Radio, Row } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 
 import { withTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -24,11 +24,16 @@ function Home({ t, i18n }) {
     if (currentLanguage !== i18n.language) {
       setCurrentLanguage(i18n.language);
 
-      ["name", "email", "phone", "message"].forEach((name) =>
+      ["is_gambler", "false_ads", "won_lottery", "story"].forEach((name) =>
         form.setFields([{ name: name, errors: "" }])
       );
     }
   });
+
+  const yesNoOptions = [
+    { label: t("yes"), value: "yes" },
+    { label: t("no"), value: "no" },
+  ];
 
   return (
     <>
@@ -37,7 +42,7 @@ function Home({ t, i18n }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Row justify="center" align="stretch" gutter={[8, 16]}>
+      <Row align="stretch">
         <Col
           xs={{ span: 24, offset: 0 }}
           sm={{ span: 24, offset: 0 }}
@@ -48,16 +53,17 @@ function Home({ t, i18n }) {
           <Card
             title={
               <>
-                <CommentOutlined /> &nbsp;
-                <span style={{ whiteSpace: "normal" }}>{t("contact_us")}</span>
+                <QuestionCircleOutlined /> &nbsp;
+                <span style={{ whiteSpace: "normal" }}>{t("heading")}</span>
               </>
             }
             bordered={false}
           >
             <Form
-              name="basic"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
+              name="questionnaire"
+              labelWrap
+              labelCol={{ span: 12 }}
+              wrapperCol={{ span: 12 }}
               style={{ maxWidth: 600 }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
@@ -65,58 +71,85 @@ function Home({ t, i18n }) {
               form={form}
             >
               <Form.Item
-                label={t("full_name")}
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: t("error_msg_prefix", { LABEL: t("full_name") }),
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item
-                label={t("email")}
-                name="email"
-                rules={[
-                  {
-                    type: "email",
-                    required: true,
-                    message: t("error_msg_prefix", { LABEL: t("email") }),
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item
-                label={t("phone_number")}
-                name="phone"
+                label={t("is_gambler")}
+                name="is_gambler"
                 rules={[
                   {
                     required: true,
                     message: t("error_msg_prefix", {
-                      LABEL: t("phone_number"),
+                      LABEL: t("is_gambler"),
+                      TYPE: t("select"),
                     }),
                   },
                 ]}
               >
-                <Input />
+                <Radio.Group
+                  options={ yesNoOptions}
+                  // onChange={onChange4}
+                  // value={value4}
+                  optionType="button"
+                  buttonStyle="solid"
+                />
               </Form.Item>
 
               <Form.Item
-                label={t("message")}
-                name="message"
+                label={t("false_ads")}
+                name="false_ads"
                 rules={[
                   {
                     required: true,
-                    message: t("error_msg_prefix", { LABEL: t("message") }),
+                    message: t("error_msg_prefix", {
+                      LABEL: t("false_ads"),
+                      TYPE: t("select"),
+                    }),
                   },
                 ]}
               >
-                <Input.TextArea rows={6} />
+                <Radio.Group
+                  options={ yesNoOptions}
+                  // onChange={onChange4}
+                  // value={value4}
+                  optionType="button"
+                  buttonStyle="solid"
+                />
+              </Form.Item>
+
+              <Form.Item
+                label={t("won_lottery")}
+                name="won_lottery"
+                rules={[
+                  {
+                    required: true,
+                    message: t("error_msg_prefix", {
+                      LABEL: t("won_lottery"),
+                      TYPE: t("select"),
+                    }),
+                  },
+                ]}
+              >
+                <Radio.Group
+                  options={yesNoOptions}
+                  // onChange={onChange4}
+                  // value={value4}
+                  optionType="button"
+                  buttonStyle="solid"
+                />
+              </Form.Item>
+
+              <Form.Item
+                label={t("story")}
+                name="story"
+                rules={[
+                  {
+                    required: true,
+                    message: t("error_msg_prefix", {
+                      LABEL: t("story"),
+                      TYPE: t("enter"),
+                    }),
+                  },
+                ]}
+              >
+                <Input.TextArea placeholder={t("txt_area_hint")} rows={6} />
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
@@ -134,9 +167,9 @@ function Home({ t, i18n }) {
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? "en", ["contacts", "common"])),
+    ...(await serverSideTranslations(locale ?? "en", ["questionnaire", "common"])),
   },
 });
 
 export { Home };
-export default withTranslation(["contacts", "common"])(Home);
+export default withTranslation(["questionnaire", "common"])(Home);

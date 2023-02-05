@@ -8,16 +8,19 @@ import SignPetition from "../components/sign-petition";
 import SignatureCanvas from "react-signature-canvas";
 import { TeamOutlined, ReloadOutlined } from "@ant-design/icons";
 import { Alert, Button, Card, Col, Modal, Row, Space } from "antd";
+import { useRouter } from "next/router";
 const { Meta } = Card;
 
 function Home({ t, i18n }) {
   // Personal Info Modal
   const [showModal, setShowModal] = useState(false);
   const submitButtonRef = useRef();
+  const router = useRouter();
 
   const onFinish = (values) => {
     setTimeout(() => setShowModal(false), 2000);
     console.log("Success:", values);
+    router.push("questionnaire");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -123,7 +126,7 @@ function Home({ t, i18n }) {
                       type="dashed"
                       icon={<ReloadOutlined />}
                     >
-                      {t('sign_pad_clear')}
+                      {t("sign_pad_clear")}
                     </Button>
 
                     <Button

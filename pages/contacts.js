@@ -37,7 +37,7 @@ function Home({ t, i18n }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Row justify="center" align="stretch" gutter={[8, 16]}>
+      <Row align="stretch">
         <Col
           xs={{ span: 24, offset: 0 }}
           sm={{ span: 24, offset: 0 }}
@@ -55,7 +55,7 @@ function Home({ t, i18n }) {
             bordered={false}
           >
             <Form
-              name="basic"
+              name="messages"
               labelCol={{ span: 8 }}
               wrapperCol={{ span: 16 }}
               style={{ maxWidth: 600 }}

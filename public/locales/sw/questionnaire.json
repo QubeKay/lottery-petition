@@ -1,0 +1,15 @@
+{
+    "title": "Hojaji - Kudhibiti Kamari",
+    "heading": "Maswali ya uchunguzi",
+    "is_gambler": "Je, unacheza kamari kwenye redio na televisheni?",
+    "false_ads": "Je, umelipwa au kuulizwa kutangaza bahati nasibu kwa uongo?",
+    "won_lottery": "Je, umewahi kushinda bahati nasibu?",
+    "story": "Shiriki hadithi yako ya kamari",
+    "txt_area_hint": "Jibu lako...",
+    "error_msg_prefix": "Tafadhali {{TYPE}} jibu lako kwa \"{{LABEL}}\".",
+    "enter": "andika",
+    "select": "chagua",
+    "yes": "Ndiyo",
+    "no": "Hapana",
+    "submit": "Wasilisha"
+}
