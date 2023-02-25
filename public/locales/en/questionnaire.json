@@ -11,5 +11,9 @@
     "select": "select",
     "yes": "Yes",
     "no": "No",
-    "submit": "Submit"
+    "submit": "Submit",
+    "result_title": "Petition signed, thank you!",
+    "result_subtitle": "To help more, please respond to the questionnaire below.",
+    "qresult_title": "Questionnaire submitted successfully!",
+    "qresult_subtitle": "Thank you for going the extra mile."
 }

@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Input, Row } from "antd";
+import { Button, Card, Checkbox, Col, Form, Input, Row } from "antd";
 import { useState, useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 
@@ -145,6 +145,38 @@ function SignPetition({ t, i18n, submitButtonRef, onFinish, onFinishFailed }) {
                 ]}
               >
                 <Input />
+              </Form.Item>
+
+              <Form.Item
+                name="support_check"
+                valuePropName="checked"
+                initialValue={true}
+                wrapperCol={{ offset: 4, span: 20 }}
+              >
+                <Checkbox>{t("support_check")}</Checkbox>
+              </Form.Item>
+
+              <Form.Item
+                name="sign_check"
+                valuePropName="checked"
+                initialValue={false}
+                wrapperCol={{ offset: 4, span: 20 }}
+                rules={[
+                  {
+                    required: true,
+                    validator: async (rules, value) =>
+                      value
+                        ? Promise.resolve()
+                        : Promise.reject(
+                            new Error(
+                              t("error_msg_prefix", { LABEL: t("sign_check") })
+                            )
+                          ),
+                    message: t("error_msg_prefix", { LABEL: t("sign_check") }),
+                  },
+                ]}
+              >
+                <Checkbox>{t("sign_check")}</Checkbox>
               </Form.Item>
 
               <Form.Item style={{ display: "none" }}>

@@ -7,20 +7,54 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import SignPetition from "../components/sign-petition";
 import SignatureCanvas from "react-signature-canvas";
 import { TeamOutlined, ReloadOutlined } from "@ant-design/icons";
-import { Alert, Button, Card, Col, Modal, Row, Space } from "antd";
+import { Alert, Button, Card, Col, Image, Spin, message, Modal, Row, Space } from "antd";
 import { useRouter } from "next/router";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore/lite";
 const { Meta } = Card;
 
-function Home({ t, i18n }) {
+function Home({ t, i18n, db }) {
   // Personal Info Modal
   const [showModal, setShowModal] = useState(false);
   const submitButtonRef = useRef();
   const router = useRouter();
 
-  const onFinish = (values) => {
-    setTimeout(() => setShowModal(false), 2000);
-    console.log("Success:", values);
-    router.push("questionnaire");
+  const [messageApi, contextHolder] = message.useMessage();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onFinish = (data) => {
+    data = {
+      ...data,
+      signature: sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"),
+    };
+    data.sname = data.sname == undefined ? null : data.sname;
+    data = { ...data, created: serverTimestamp() };
+    console.log("Success:", data);
+    setIsSubmitting(true);
+    const signatureRef = collection(
+      db,
+      "signatures"///" + data.id_number
+    );
+    addDoc(signatureRef, data)
+      .then((successData) => {
+        // form.resetFields(["name", "email", "phone", "message"]);
+        console.log({ successData });
+        router.push({
+          query: { signature_id: successData.id, signatureSaved: true },
+          pathname: "questionnaire",
+        });
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        console.log({error});
+        messageApi.open({
+          type: "error",
+          content: "Failed to send message. Please try again.",
+          style: {
+            marginTop: "30vh",
+          },
+        });
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -41,9 +75,12 @@ function Home({ t, i18n }) {
   const [count, setCount] = useState(1);
 
   useEffect(() => {
+
     if (count > 0) {
-      setSigCanvasWidth(sigCardRef.current.clientWidth - 48);
-      setSigCanvasHeight(sigCardRef.current.clientHeight - 48);
+      const width = sigCardRef.current.clientWidth - 48;
+      const height = sigCardRef.current.clientHeight - 48;
+      setSigCanvasWidth(width < 500 ? width : width / 2);
+      setSigCanvasHeight(height < 300 ? height : height / 2);
       setCount(count - 1);
     }
   });
@@ -155,23 +192,54 @@ function Home({ t, i18n }) {
           </Card>
         </Col>
       </Row>
-
+      {contextHolder}
       <Modal
+        centered
         open={showModal}
         onOk={() => {
           submitButtonRef.current.dispatchEvent(new MouseEvent("click"));
         }}
         onCancel={() => setShowModal(false)}
-        type="warning"
         cancelText={t("dismiss_modal_btn")}
         okText={t("sign_btn_text")}
+        okButtonProps={{
+          loading: isSubmitting,
+          icon: (
+            <Image
+              width="45px"
+              preview={false}
+              src={
+                sigCanvas.current == null
+                  ? ""
+                  : sigCanvas.current.getTrimmedCanvas().toDataURL("image/png")
+              }
+            ></Image>
+          ),
+        }}
       >
-        <SignPetition
-          {...{ t, i18n }}
-          submitButtonRef={submitButtonRef}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-        ></SignPetition>
+        <Spin spinning={isSubmitting} size="large" tip="Submitting...">
+          <Row>
+            <Col offset={10} span={4}>
+              <img
+                width="100"
+                src={
+                  sigCanvas.current == null
+                    ? ""
+                    : sigCanvas.current
+                        .getTrimmedCanvas()
+                        .toDataURL("image/png")
+                }
+              ></img>
+            </Col>
+          </Row>
+
+          <SignPetition
+            {...{ t, i18n }}
+            submitButtonRef={submitButtonRef}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+          ></SignPetition>
+        </Spin>
       </Modal>
     </>
   );

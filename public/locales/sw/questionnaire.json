@@ -1,6 +1,6 @@
 {
     "title": "Hojaji - Kudhibiti Kamari",
-    "heading": "Maswali ya uchunguzi",
+    "heading": "Dodoso/Hojaji",
     "is_gambler": "Je, unacheza kamari kwenye redio na televisheni?",
     "false_ads": "Je, umelipwa au kuulizwa kutangaza bahati nasibu kwa uongo?",
     "won_lottery": "Je, umewahi kushinda bahati nasibu?",
@@ -11,5 +11,9 @@
     "select": "chagua",
     "yes": "Ndiyo",
     "no": "Hapana",
-    "submit": "Wasilisha"
+    "submit": "Wasilisha",
+    "result_title": "Ombi limetiwa saini, asante!",
+    "result_subtitle": "Ili kusaidia zaidi, tafadhali jibu dodoso lililo hapa chini.",
+    "qresult_title": "Hojaji imewasilishwa!",
+    "qresult_subtitle": "Asante kwa kwenda hatua ya ziada."
 }
