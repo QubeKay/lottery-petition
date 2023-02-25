@@ -6,5 +6,7 @@
     "phone_number": "Phone Number",
     "message": "Message",
     "submit": "Submit",
-    "error_msg_prefix": "Please input your {{LABEL}}"
+    "error_msg_prefix": "Please input your {{LABEL}}",
+    "result_title": "Thank you! Your message was successfully delivered.",
+    "result_subtitle": "Your message will be read in 1-7 days. Please be patient if a response is required."
 }

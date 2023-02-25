@@ -1,18 +1,94 @@
+import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Link from "next/link";
 
 import { withTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { TeamOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Row } from "antd";
+import SignPetition from "../components/sign-petition";
+import SignatureCanvas from "react-signature-canvas";
+import { TeamOutlined, ReloadOutlined } from "@ant-design/icons";
+import { Alert, Button, Card, Col, Image, Spin, message, Modal, Row, Space } from "antd";
+import { useRouter } from "next/router";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore/lite";
 const { Meta } = Card;
 
-function Home({ t, i18n }) {
+function Home({ t, i18n, db }) {
+  // Personal Info Modal
+  const [showModal, setShowModal] = useState(false);
+  const submitButtonRef = useRef();
+  const router = useRouter();
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onFinish = (data) => {
+    data = {
+      ...data,
+      signature: sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"),
+    };
+    data.sname = data.sname == undefined ? null : data.sname;
+    data = { ...data, created: serverTimestamp() };
+    console.log("Success:", data);
+    setIsSubmitting(true);
+    const signatureRef = collection(
+      db,
+      "signatures"///" + data.id_number
+    );
+    addDoc(signatureRef, data)
+      .then((successData) => {
+        // form.resetFields(["name", "email", "phone", "message"]);
+        console.log({ successData });
+        router.push({
+          query: { signature_id: successData.id, signatureSaved: true },
+          pathname: "questionnaire",
+        });
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        console.log({error});
+        messageApi.open({
+          type: "error",
+          content: "Failed to send message. Please try again.",
+          style: {
+            marginTop: "30vh",
+          },
+        });
+      });
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  // Signature Canvas
+  const sigCanvas = useRef();
+  const sigCardRef = useRef();
+  const [showBlankSigCanvasError, setShowBlankSigCanvasError] = useState(false);
+  const SIG_CANVAS_THRESHOLD_WIDTH = 1;
+  const [sigCanvasWidth, setSigCanvasWidth] = useState(
+    SIG_CANVAS_THRESHOLD_WIDTH
+  );
+  const [sigCanvasHeight, setSigCanvasHeight] = useState(
+    SIG_CANVAS_THRESHOLD_WIDTH
+  );
+  const [count, setCount] = useState(1);
+
+  useEffect(() => {
+
+    if (count > 0) {
+      const width = sigCardRef.current.clientWidth - 48;
+      const height = sigCardRef.current.clientHeight - 48;
+      setSigCanvasWidth(width < 500 ? width : width / 2);
+      setSigCanvasHeight(height < 300 ? height : height / 2);
+      setCount(count - 1);
+    }
+  });
+
   return (
     <>
       <Head>
-        <title>Lottery Petition - Ndirangu Gachunia</title>
+        <title>{t("title")}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -29,32 +105,151 @@ function Home({ t, i18n }) {
               avatar={<TeamOutlined />}
               title={
                 <span style={{ whiteSpace: "normal" }}>
-                  A public petition to regulate gambling and other lottery
-                  schemes on public access radio & TV stations
+                  {t("petition_heading")}
                 </span>
               }
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed laoreet augue, et tempor arcu. Curabitur sodales accumsan gravida. Curabitur lacus sapien, rutrum id semper id, interdum lobortis mauris. Curabitur elementum cursus mi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut commodo rutrum metus, id condimentum sapien interdum quis. Donec rutrum, velit eget iaculis aliquam, nisl dolor imperdiet purus, a aliquet tellus ante eget metus. Maecenas vel fermentum enim, quis fermentum ex.
-Ut ac maximus arcu, in aliquet elit. In eros sapien, sodales sed sem nec, consectetur vulputate tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed iaculis dignissim nulla, a convallis eros interdum et. Donec quis enim laoreet, varius sem at, maximus eros. Maecenas eu auctor felis. Aenean libero nisi, congue ac justo ut, tristique efficitur risus. Pellentesque suscipit eros sed iaculis varius.
-Etiam condimentum eu felis eget pulvinar. Nam rhoncus nibh ac faucibus dignissim. Etiam suscipit sed justo vitae molestie. Nunc ut metus non elit tincidunt dapibus non id ligula. Ut pulvinar sapien non est ultrices dignissim. Ut non dapibus mauris. Quisque dictum elit sed hendrerit fringilla. Cras posuere, felis sit amet tempor dignissim, tellus sem rutrum dui, ac tempus ipsum risus quis ligula. Suspendisse lobortis neque sit amet sapien vestibulum pharetra. Proin suscipit hendrerit augue id varius. Sed vel scelerisque risus, vitae consequat nisl."
+              description={
+                <>
+                  <p>{t("petition")}</p>
+                  <ul>
+                    <li>{t("petition_1")}</li>
+                    <li>{t("petition_2")}</li>
+                  </ul>
+                </>
+              }
             />
+            <div className={styles.container}>
+              <Card
+                ref={sigCardRef}
+                title={t("sign_pad_title")}
+                style={{
+                  textAlign: "center",
+                  width: "100%",
+                  minHeight: "400px",
+                }}
+              >
+                <Space direction="vertical">
+                  {sigCanvasWidth > SIG_CANVAS_THRESHOLD_WIDTH && (
+                    <SignatureCanvas
+                      ref={sigCanvas}
+                      penColor="blue"
+                      backgroundColor="rgba(240, 240, 240, 20)"
+                      // width={sigCanvasWidth}
+                      // height={sigCanvasHeight}
+                      canvasProps={{
+                        width: sigCanvasWidth,
+                        height: sigCanvasHeight,
+                        // className: "sigCanvas",
+                      }}
+                    />
+                  )}
+
+                  {showBlankSigCanvasError && (
+                    <Alert
+                      message="Please sign first. Signature cannot be blank!"
+                      type="error"
+                      closable={true}
+                      afterClose={() => setShowBlankSigCanvasError(false)}
+                    />
+                  )}
+
+                  <Space
+                    direction="horizontal"
+                    wrap
+                    style={{ justifyContent: "center" }}
+                  >
+                    <Button
+                      onClick={() => sigCanvas.current.clear()}
+                      type="dashed"
+                      icon={<ReloadOutlined />}
+                    >
+                      {t("sign_pad_clear")}
+                    </Button>
+
+                    <Button
+                      data-testid="sign-petition-button"
+                      size="large"
+                      type="primary"
+                      shape="round"
+                      onClick={() => {
+                        const base64Png = sigCanvas.current
+                          .getTrimmedCanvas()
+                          .toDataURL("image/png");
+
+                        console.log(base64Png);
+                        if (!sigCanvas.current.isEmpty()) {
+                          setShowBlankSigCanvasError(false);
+                          setShowModal(true);
+                        } else setShowBlankSigCanvasError(true);
+                      }}
+                    >
+                      {t("sign_btn_text")} &nbsp; &gt;
+                    </Button>
+                  </Space>
+                </Space>
+              </Card>
+            </div>
           </Card>
         </Col>
       </Row>
-      <br />
-      <div className={styles.container}>
-        <Button data-testid='sign-petition-button' size="large" type="primary" shape="round">
-          Sign Petition &nbsp; &gt;
-        </Button>
-      </div>
+      {contextHolder}
+      <Modal
+        centered
+        open={showModal}
+        onOk={() => {
+          submitButtonRef.current.dispatchEvent(new MouseEvent("click"));
+        }}
+        onCancel={() => setShowModal(false)}
+        cancelText={t("dismiss_modal_btn")}
+        okText={t("sign_btn_text")}
+        okButtonProps={{
+          loading: isSubmitting,
+          icon: (
+            <Image
+              width="45px"
+              preview={false}
+              src={
+                sigCanvas.current == null
+                  ? ""
+                  : sigCanvas.current.getTrimmedCanvas().toDataURL("image/png")
+              }
+            ></Image>
+          ),
+        }}
+      >
+        <Spin spinning={isSubmitting} size="large" tip="Submitting...">
+          <Row>
+            <Col offset={10} span={4}>
+              <img
+                width="100"
+                src={
+                  sigCanvas.current == null
+                    ? ""
+                    : sigCanvas.current
+                        .getTrimmedCanvas()
+                        .toDataURL("image/png")
+                }
+              ></img>
+            </Col>
+          </Row>
+
+          <SignPetition
+            {...{ t, i18n }}
+            submitButtonRef={submitButtonRef}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+          ></SignPetition>
+        </Spin>
+      </Modal>
     </>
   );
 }
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    ...(await serverSideTranslations(locale ?? "en", ["index", "common"])),
   },
 });
 
 export { Home };
-export default withTranslation()(Home);
+export default withTranslation(["index", "common"])(Home);

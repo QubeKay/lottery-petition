@@ -1,10 +1,12 @@
 {
     "title": "Wasiliana Nasi :: Lottery Petition",
-    "contact_us": "Wasiliana Nasi :: Tutumie ujumbe au swali",
+    "contact_us": "Wasiliana Nasi :: Tuma ujumbe au swali",
     "full_name": "Jina Kamili",
     "email": "Anwani ya Barua Pepe",
     "phone_number": "Nambari ya Simu",
     "message": "Ujumbe",
     "submit": "Wasilisha",
-    "error_msg_prefix": "Tafadhali andika {{LABEL}}"
+    "error_msg_prefix": "Tafadhali andika {{LABEL}}",
+    "result_title": "Asante! Ujumbe wako umewasilishwa.",
+    "result_subtitle": "Ujumbe wako utasomwa baada ya siku 1-7. Tafadhali kuwa na subira ikiwa jibu litahitajika."
 }

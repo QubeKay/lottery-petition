@@ -1,0 +1,22 @@
+{
+    "title": "Lottery Petition - Ndirangu Gachunia",
+    "petition_heading": "A public petition to regulate gambling and other lottery schemes on public access radio & TV stations",
+    "petition": "The continuous advertising of people gambling to win some price is driving our communities and country in the wrong direction. We cannot feed our new generation that success comes from LUCK and external factors. Our media must reflect our reality. They must stay true to our dreams and aspirations as a community not feeding us garbage daily and hoping for the best. They must account for every suicide, broken home and all on the account of failed gambling. We hereby petition the government and the Betting Licensing Control Board to revise the laws and regulations that allow for these lottery schemes on our local media stations, both radio and TV. This petition requests the government to bet all betting, gambling, and other lottery schemes on radio and television and to ban any advertising of the same on any platform in the country. Let it be like it was with cigarettes. Those who want to gamble will still find ways to gamble, just like there are still smokers around, but it won't be because they were lured into the vice while listening to radio, TV, or some other channel where they are supposed to get intellectual and/or spiritual nourishment. In summary, this petition requests the government and the BLCB to:",
+    "petition_1": "Ban all betting, gambling, and other lottery schemes from airing on our local radio, TV, and other media platforms.",
+    "petition_2": "Ban any and all advertising of betting, gambling, and other lottery schemes on our local radio, TV, and other media platforms.",
+    "sign_btn_text": "Sign the Petition",
+    "modal_title": "Final Step - Personal Information",
+    "fname": "First Name",
+    "sname": "Middle Name(s)",
+    "lname": "Last Name",
+    "id_number": "Id/Passport Number",
+    "email": "Email",
+    "phone_number": "Phone Number",
+    "county": "County",
+    "support_check": "Do you want to publicly support/sponsor this petition?",
+    "sign_check": "I understand that I’m appending my digital signature to this petition.",
+    "error_msg_prefix": "Please input your {{LABEL}}",
+    "dismiss_modal_btn": "Dismiss",
+    "sign_pad_title": "Sign below",
+    "sign_pad_clear": "Clear Canvas"
+}

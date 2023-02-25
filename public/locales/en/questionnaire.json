@@ -1,0 +1,19 @@
+{
+    "title": "Questionnaire - Lottery Petition",
+    "heading": "Questionnaire",
+    "is_gambler": "Do you bet on radio and television?",
+    "false_ads": "Have you been paid or asked to falsely advertise a lottery?",
+    "won_lottery": "Have you ever won a lottery?",
+    "story": "Share your gambling story",
+    "txt_area_hint": "Your response...",
+    "error_msg_prefix": "Please {{TYPE}} your response to \"{{LABEL}}\".",
+    "enter": "enter",
+    "select": "select",
+    "yes": "Yes",
+    "no": "No",
+    "submit": "Submit",
+    "result_title": "Petition signed, thank you!",
+    "result_subtitle": "To help more, please respond to the questionnaire below.",
+    "qresult_title": "Questionnaire submitted successfully!",
+    "qresult_subtitle": "Thank you for going the extra mile."
+}
