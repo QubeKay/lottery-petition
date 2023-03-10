@@ -45,7 +45,7 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-const App = ({ Component, ...rest }) => {
+const App = ({ Component, pageProps, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   // const { layout } = useSelector((state) => state);
   // const dispatch = useDispatch();
@@ -123,84 +123,85 @@ const App = ({ Component, ...rest }) => {
 
   return (
     <Provider store={store}>
-      <Layout style={{ minHeight: "100vh" }}>
-        <Header
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 1,
-            padding: 0,
-            paddingRight: 24,
-            background: colorBgContainer,
-          }}
-          onClick={() => setCollapsed(true)}
-        >
-          <p className="logo">Lottery Petition</p>
-          <Row style={{ minHeight: "100%" }}>
-            <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-              <Menu
-                onClick={onMenuClicked}
-                style={{ justifyContent: "flex-end" }}
-                mode="horizontal"
-                selectedKeys={[current]}
-                items={items1}
-              />
-            </Col>
-            <Col xs={24} sm={24} md={24} lg={0} xl={0}>
-              <Button
-                type="secondary"
-                onClick={(e) => {
-                  setCollapsed(!collapsed);
-                  e.stopPropagation();
-                }}
-                className="trigger"
-              >
-                {collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
-              </Button>
-            </Col>
-          </Row>
-        </Header>
-        <Layout className="site-layout">
-          <Content
-            onClick={() => setCollapsed(true)}
-            style={{
-              margin: "24px 16px",
-              padding: 24,
-              minHeight: "100vh",
-              // background: colorBgContainer,
-            }}
-          >
-            <Component {...props.pageProps} db={db} />
-          </Content>
-          <Sider
-            trigger={null}
-            collapsedWidth="0"
-            collapsible
-            collapsed={collapsed}
-            style={{
-              overflow: "auto",
-              height: "100vh",
-              position: "fixed",
-              right: 0,
-              top: 64,
-              bottom: 0,
-            }}
-          >
-            <Menu
-              onClick={onMenuClicked}
-              mode="inline"
-              defaultSelectedKeys={[current]}
-              items={items1}
-            />
-          </Sider>
-        </Layout>
-        <Footer
-          onClick={() => setCollapsed(true)}
-          style={{ textAlign: "center" }}
-        >
-          Kay Qube Design ©2023 Created by Premar Systems Ltd
-        </Footer>
-      </Layout>
+      <Component {...pageProps} />
+      {/*<Layout style={{ minHeight: "100vh" }}>*/}
+      {/*  <Header*/}
+      {/*    style={{*/}
+      {/*      position: "sticky",*/}
+      {/*      top: 0,*/}
+      {/*      zIndex: 1,*/}
+      {/*      padding: 0,*/}
+      {/*      paddingRight: 24,*/}
+      {/*      background: colorBgContainer,*/}
+      {/*    }}*/}
+      {/*    onClick={() => setCollapsed(true)}*/}
+      {/*  >*/}
+      {/*    <p className="logo">Lottery Petition</p>*/}
+      {/*    <Row style={{ minHeight: "100%" }}>*/}
+      {/*      <Col xs={0} sm={0} md={0} lg={24} xl={24}>*/}
+      {/*        <Menu*/}
+      {/*          onClick={onMenuClicked}*/}
+      {/*          style={{ justifyContent: "flex-end" }}*/}
+      {/*          mode="horizontal"*/}
+      {/*          selectedKeys={[current]}*/}
+      {/*          items={items1}*/}
+      {/*        />*/}
+      {/*      </Col>*/}
+      {/*      <Col xs={24} sm={24} md={24} lg={0} xl={0}>*/}
+      {/*        <Button*/}
+      {/*          type="secondary"*/}
+      {/*          onClick={(e) => {*/}
+      {/*            setCollapsed(!collapsed);*/}
+      {/*            e.stopPropagation();*/}
+      {/*          }}*/}
+      {/*          className="trigger"*/}
+      {/*        >*/}
+      {/*          {collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}*/}
+      {/*        </Button>*/}
+      {/*      </Col>*/}
+      {/*    </Row>*/}
+      {/*  </Header>*/}
+      {/*  <Layout className="site-layout">*/}
+      {/*    <Content*/}
+      {/*      onClick={() => setCollapsed(true)}*/}
+      {/*      style={{*/}
+      {/*        margin: "24px 16px",*/}
+      {/*        padding: 24,*/}
+      {/*        minHeight: "100vh",*/}
+      {/*        // background: colorBgContainer,*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      /!* <Component {...props.pageProps} db={db} /> *!/*/}
+      {/*    </Content>*/}
+      {/*    <Sider*/}
+      {/*      trigger={null}*/}
+      {/*      collapsedWidth="0"*/}
+      {/*      collapsible*/}
+      {/*      collapsed={collapsed}*/}
+      {/*      style={{*/}
+      {/*        overflow: "auto",*/}
+      {/*        height: "100vh",*/}
+      {/*        position: "fixed",*/}
+      {/*        right: 0,*/}
+      {/*        top: 64,*/}
+      {/*        bottom: 0,*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      <Menu*/}
+      {/*        onClick={onMenuClicked}*/}
+      {/*        mode="inline"*/}
+      {/*        defaultSelectedKeys={[current]}*/}
+      {/*        items={items1}*/}
+      {/*      />*/}
+      {/*    </Sider>*/}
+      {/*  </Layout>*/}
+      {/*  <Footer*/}
+      {/*    onClick={() => setCollapsed(true)}*/}
+      {/*    style={{ textAlign: "center" }}*/}
+      {/*  >*/}
+      {/*    Kay Qube Design ©2023 Created by Premar Systems Ltd*/}
+      {/*  </Footer>*/}
+      {/*</Layout>*/}
     </Provider>
   );
 };
